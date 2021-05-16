@@ -12,7 +12,8 @@ class TasksController extends Controller
     public function index()
     {
         
-        $tasks = Task::all();
+        // ユーザ一覧をidの降順で取得
+        $users = User::orderBy('id', 'desc')->paginate(1);
         
         return view('tasks.index', ['tasks' => $tasks,]);
         

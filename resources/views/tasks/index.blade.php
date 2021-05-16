@@ -23,6 +23,9 @@
                 @endforeach
             </tbody>
         </table>
+    
+        {{-- ページネーションのリンク --}}
+        {{ $users->links() }}
     @endif
     
     {!! link_to_route('tasks.create', '新規メッセージの投稿', [], ['class' => 'btn btn-primary']) !!}
