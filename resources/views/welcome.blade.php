@@ -6,8 +6,21 @@
     
         {{ Auth::user()->name }}
         
+        <h1>ログイン成功（welcome.blade.phpを表示中）</h1>
         
-        <h1>1321564648561161651</h1>
+        <div class="row">
+            <aside class="col-sm-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">{{ Auth::user()->name }}</h3>
+                    </div>
+                </div>
+            </aside>
+            <div class="col-sm-8">
+                {{-- タスク一覧 --}}
+                @include('tasks.index')
+            </div>
+        </div>
     
     @else
     

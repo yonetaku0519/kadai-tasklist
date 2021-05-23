@@ -1,7 +1,10 @@
 <?php
 
-Route::get('/', 'TasksController@index');
 
+// Route::get('/', function() {
+//     return view ('welcome');
+// });
+Route::get('/', 'TasksController@index');
 // Route::resource('tasks', 'TasksController');
 
 // ユーザ登録
@@ -14,6 +17,6 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('users', 'TasksController', ['only' => ['index', 'show']]);
+    Route::resource('tasks', 'TasksController', ['only' => ['index', 'show','create','edit','store','destroy','update']]);
 });
 

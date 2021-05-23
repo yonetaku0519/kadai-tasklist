@@ -3,8 +3,7 @@
 @section('content')
 
  <h1>タスク一覧</h1>
-
-    @if (count($tasks) > 0)
+    @if (isset($tasks))
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -24,10 +23,10 @@
             </tbody>
         </table>
     
-        {{-- ページネーションのリンク --}}
-        {{ $users->links() }}
+    @else
+        <p>Hello</p>
     @endif
     
-    {!! link_to_route('tasks.create', '新規メッセージの投稿', [], ['class' => 'btn btn-primary']) !!}
+    {!! link_to_route('tasks.create', '新規タスクの作成', [], ['class' => 'btn btn-primary']) !!}
 
 @endsection
