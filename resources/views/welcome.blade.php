@@ -3,10 +3,6 @@
 @section('content')
 
     @if (Auth::check())
-    
-        {{ Auth::user()->name }}
-        
-        <h1>ログイン成功（welcome.blade.phpを表示中）</h1>
         
         <div class="row">
             <aside class="col-sm-4">

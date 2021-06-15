@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Task;
+use App\User;
 
 class TasksController extends Controller
 {
@@ -19,7 +20,7 @@ class TasksController extends Controller
             // 認証済みユーザを取得
             $user = \Auth::user();
             // ユーザの投稿の一覧を作成日時の降順で取得
-            // （後のChapterで他ユーザの投稿も取得するように変更しますが、現時点ではこのユーザの投稿のみ取得します）
+            
             $tasks = $user->tasks()->orderBy('id', 'desc')->paginate(10);
             
 
@@ -68,8 +69,13 @@ class TasksController extends Controller
     {
         
         $task = Task::findOrFail($id);
+        // userIdのチェックを追加:2021/06/15
+        if (\Auth::id() === $task->user_id) {
+            return view('tasks.show', ['task' => $task,]);
+        } else {
+            return redirect('/');
+        }
         
-        return view('tasks.show', ['task' => $task,]);
         
     }
 
@@ -79,7 +85,12 @@ class TasksController extends Controller
         
         $task = Task::findOrFail($id);
         
-        return view('tasks.edit', ['task' => $task,]);
+        // userIdのチェックを追加:2021/06/15
+        if (\Auth::id() === $task->user_id) {
+            return view('tasks.edit', ['task' => $task,]);
+        } else {
+            return redirect('/');
+        }
         
     }
 
@@ -96,11 +107,15 @@ class TasksController extends Controller
         
         $task = Task::findOrFail($id);
         
-        $task->content = $request->content;
-        $task->status = $request->status;
-        $task->save();
-
-        return redirect('/');
+        // userIdのチェックを追加
+        if (\Auth::id() === $task->user_id) {
+            $task->content = $request->content;
+            $task->status = $request->status;
+            $task->save();
+        } else {
+            return redirect('/');
+        }
+            return redirect('/');
         
     }
 
@@ -115,7 +130,12 @@ class TasksController extends Controller
         
         $task = Task::findOrFail($id);
         
-        $task->delete();
+        // userIdのチェックを追加:2021/06/15
+        if (\Auth::id() === $task->user_id) {
+            $task->delete();
+        } else {
+            return redirect('/');
+        }
 
         return redirect('/');
     }
