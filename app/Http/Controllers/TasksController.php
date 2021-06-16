@@ -72,10 +72,9 @@ class TasksController extends Controller
         // userIdのチェックを追加:2021/06/15
         if (\Auth::id() === $task->user_id) {
             return view('tasks.show', ['task' => $task,]);
-        } else {
-            return redirect('/');
         }
         
+        return redirect('/');
         
     }
 
@@ -88,10 +87,9 @@ class TasksController extends Controller
         // userIdのチェックを追加:2021/06/15
         if (\Auth::id() === $task->user_id) {
             return view('tasks.edit', ['task' => $task,]);
-        } else {
-            return redirect('/');
-        }
+        } 
         
+        return redirect('/');
     }
 
  
@@ -112,9 +110,7 @@ class TasksController extends Controller
             $task->content = $request->content;
             $task->status = $request->status;
             $task->save();
-        } else {
-            return redirect('/');
-        }
+        } 
             return redirect('/');
         
     }
@@ -133,9 +129,7 @@ class TasksController extends Controller
         // userIdのチェックを追加:2021/06/15
         if (\Auth::id() === $task->user_id) {
             $task->delete();
-        } else {
-            return redirect('/');
-        }
+        } 
 
         return redirect('/');
     }
